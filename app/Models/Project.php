@@ -29,4 +29,9 @@ class Project extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function mark()
+    {
+        return $this->hasOne(Mark::class);
+    }
 }

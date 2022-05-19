@@ -53,6 +53,8 @@ Route::group(['middleware'=>['auth','IsDoctor']],function(){
     Route::post('/select-presenter/{project}',[DoctorController::class,'select_presenter'])->name('select-presenter');
     Route::post('/update-date/{project}',[DoctorController::class,'update_date'])->name('update-date');
     Route::post('/update-link/{project}',[DoctorController::class,'update_link'])->name('update-link');
+    Route::get('/marks/{project}',[DoctorController::class,'marks'])->name('marks');
+    Route::post('/marks/{project}',[DoctorController::class,'update_marks'])->name('update-marks');
 });
 
 Route::group(['middleware'=>['auth','IsStudent']],function(){

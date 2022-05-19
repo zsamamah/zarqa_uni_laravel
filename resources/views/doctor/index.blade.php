@@ -270,7 +270,7 @@
       @endif
     </td>
       <td>...</td>
-      <td><a href="mark-doctor.html"><button>Mark</button></a></td>
+      <td><a href="{{ route('marks',$item->id) }}"><button>Mark</button></a></td>
     </tr>
     @endforeach
   </table></div>
