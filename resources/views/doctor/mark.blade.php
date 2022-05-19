@@ -161,7 +161,8 @@ th {
 <body>
 
 <div class="header">
-  <label><h1>name project</h1></label>
+  <label><h1>{{$project->project_name}}</h1></label>
+  <a href="{{ url('/') }}">Home</a>
   
 <table class="table2" align='center'>
     <tr>
