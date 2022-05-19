@@ -21,6 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('presenter_id')->nullable();
             $table->foreign('presenter_id')->references('id')->on('users');
             $table->string('students')->default('0');
+            $table->string('date')->nullable();
+            $table->string('link')->nullable();
             $table->string('short_des');
             $table->string('langs');
             $table->text('full_des');

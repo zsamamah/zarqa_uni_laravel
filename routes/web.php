@@ -51,6 +51,8 @@ Route::group(['middleware'=>['auth','IsDoctor']],function(){
     Route::get('/add-project',[DoctorController::class,'add_project'])->name('add-project');
     Route::post('/add-project/{user}',[DoctorController::class,'save_project'])->name('save-project');
     Route::post('/select-presenter/{project}',[DoctorController::class,'select_presenter'])->name('select-presenter');
+    Route::post('/update-date/{project}',[DoctorController::class,'update_date'])->name('update-date');
+    Route::post('/update-link/{project}',[DoctorController::class,'update_link'])->name('update-link');
 });
 
 Route::group(['middleware'=>['auth','IsStudent']],function(){

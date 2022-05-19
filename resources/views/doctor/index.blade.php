@@ -231,14 +231,26 @@
     @foreach ($projects as $item)
     <tr>
       <td>{{$item->project_name}}</td>
-      <td><form action="#">
+      <td>
+        <form method="POST" action="{{ route('update-date',$item->id) }}">
+        @csrf
+        @if ($item->date)
+            <p>{{$item->date}}</p>
+        @endif
         <input type="text" id="date" name="date"><br><br>
-        <input type="submit" value="Submit">
-      </form></td>
-      <td><form action="#">
-        <input type="text" id="link" name="link"><br><br>
-        <input type="submit" value="Submit">
-      </form></td>
+        <button type="submit">Update</button>
+      </form>
+    </td>
+      <td>
+        <form method="POST" action="{{ route('update-link',$item->id) }}">
+          @csrf
+          @if ($item->link)
+              <a href="{{$item->link}}">Here</a>
+          @endif
+          <input type="text" id="date" name="link"><br><br>
+          <button type="submit">Update</button>
+        </form>
+    </td>
       <td>
         @if (!$item->presenter_id)
         <form method="POST" action="{{ route('select-presenter',$item['id']) }}">
@@ -278,8 +290,14 @@
     @foreach ($presenters as $item)
     <tr>
       <td>{{$item->project_name}}</td>
-      <td>...</td>
-      <td>...</td>
+      <td>{{$item->date}}</td>
+      <td>
+        @if ($item->link)
+            <a href="{{$item->link}}">Here</a>
+        @else
+            <p>NULL</p>
+        @endif
+      </td>
       <td>{{$item->name}}</td>
       <td>...</td>
       <td><a href="mark2.html"><button>Mark</button></a></td>

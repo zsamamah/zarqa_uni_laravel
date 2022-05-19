@@ -52,4 +52,18 @@ class DoctorController extends Controller
         ]);
         return redirect('/doctor');
     }
+    public function update_date(Request $request,Project $project)
+    {
+        $project->update([
+            'date'=>$request['date']
+        ]);
+        return redirect('/doctor');
+    }
+    public function update_link(Request $request,Project $project)
+    {
+        $project->update([
+            'link'=>$request['link']
+        ]);
+        return redirect('/doctor');
+    }
 }
