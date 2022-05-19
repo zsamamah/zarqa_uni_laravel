@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Project extends Model
 {
     use HasFactory;
 
@@ -15,16 +15,16 @@ class Student extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'student_id',
-        'dept',
-        'hours',
-        'gpa',
-        'grad_year'
+        'project_name',
+        'owner_dr',
+        'presenter_id',
+        'short_des',
+        'langs',
+        'full_des'
     ];
 
-    public function user()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
-
 }

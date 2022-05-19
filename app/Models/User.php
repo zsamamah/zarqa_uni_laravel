@@ -47,6 +47,16 @@ class User extends Authenticatable
 
     public function student()
     {
-        return $this->hasOne('student');
+        return $this->hasOne(Student::class);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+    
+    public function assign()
+    {
+        return $this->hasOne(Assign::class);
     }
 }
