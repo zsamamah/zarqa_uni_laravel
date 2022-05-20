@@ -126,8 +126,8 @@
           </div>
           <div class="card-body">
             <p class="mb-0"><strong class="pr-1">Student ID :</strong>{{$student['username']}}</p>
-            <p class="mb-0"><strong class="pr-1">Project name :</strong>zu gate</p>
-            <p class="mb-0"><strong class="pr-1">Doctot :</strong>...</p>
+            <p class="mb-0"><strong class="pr-1">Project name :</strong>{{$project->project_name}}</p>
+            <p class="mb-0"><strong class="pr-1">Doctor :</strong>{{$project->name}}</p>
             <p class="mb-0"><strong class="pr-1">Logout :</strong>
               {{-- <a href="">   <i style='font-size:24px' class='fas' >&#xf2f5;</i> </a> --}}
               <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -182,18 +182,18 @@
                         <tr>
                 <th width="30%">Doctor as presnter</th>
                 <td width="2%">:</td>
-                <td>......</td>
+                <td>{{$project->presenter}}</td>
               </tr>
               <tr>
                 <tr>
                   <th width="30%">Discussion date</th>
                   <td width="2%">:</td>
-                  <td></td>
+                  <td>{{$project->date}}</td>
                 </tr>
                 <tr>
                   <th width="30%">discussion link</th>
                   <td width="2%">:</td>
-                  <td></td>
+                  <td><a href="{{$project->link}}">Here</a></td>
                 </tr>
                 <th width="30%">Mark</th>
                 <td width="2%">:</td>
@@ -214,21 +214,13 @@
       <th>ID </th>
       <th>phone</th>
     </tr>
+    @foreach ($team as $item)
     <tr>
-      <td>...</td>
-      <td>....</td>
-      <td>...</td>
+      <td>{{$item->name}}</td>
+      <td>{{$item->username}}</td>
+      <td>{{$item->phone}}</td>
     </tr>
-    <tr>
-      <td>...</td>
-      <td>....</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>...</td>
-      <td>....</td>
-      <td>...</td>
-    </tr>
+    @endforeach
   
   </table></div>
   <div id="ch_pass" class="tabcontent">

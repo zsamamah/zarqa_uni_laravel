@@ -60,4 +60,5 @@ Route::group(['middleware'=>['auth','IsDoctor']],function(){
 Route::group(['middleware'=>['auth','IsStudent']],function(){
     Route::get('/student',[StudentController::class,'home'])->name('student');
     Route::post('/student-change-password/{user}',[StudentController::class,'change_password'])->name('student-change-password');
+    Route::get('/assign/{project}/{user}',[StudentController::class,'assign'])->name('assign');
 });

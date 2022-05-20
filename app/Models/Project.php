@@ -19,6 +19,7 @@ class Project extends Model
         'owner_dr',
         'date',
         'link',
+        'students',
         'presenter_id',
         'short_des',
         'langs',

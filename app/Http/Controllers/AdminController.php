@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,7 +12,10 @@ class AdminController extends Controller
 {
     public function home()
     {
-        return view('admin.index');
+        $projects = Project::all();
+        $doctors = User::where('role','doctor')->get();
+        $students = User::where('role','student')->get();
+        return view('admin.index',compact('projects','doctors','students'));
     }
     public function create_user()
     {

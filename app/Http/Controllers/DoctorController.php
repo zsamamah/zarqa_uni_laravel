@@ -37,12 +37,15 @@ class DoctorController extends Controller
     }
     public function save_project(Request $request,User $user)
     {
-        Project::create([
+        $project = Project::create([
             'project_name'=>$request['name'],
             'owner_dr'=>$user['id'],
             'short_des'=>$request['short_des'],
             'langs'=>$request['langs'],
             'full_des'=>$request['full_des']
+        ]);
+        Mark::create([
+            'project_id'=>$project['id']
         ]);
         return redirect('/doctor');
     }
