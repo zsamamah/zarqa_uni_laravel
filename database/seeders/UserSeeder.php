@@ -59,5 +59,12 @@ class UserSeeder extends Seeder
             ],
         ]
     );
+    DB::table('students')->insert([
+        'student_id'=>'3',
+        'dept'=>'computer eng',
+        'hours'=>'93',
+        'gpa'=>'3.5',
+        'grad_year'=>'2023'
+    ]);
     }
 }
