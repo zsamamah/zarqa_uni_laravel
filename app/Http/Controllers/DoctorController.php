@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assign;
 use App\Models\Mark;
 use App\Models\Project;
 use App\Models\User;
@@ -17,7 +18,8 @@ class DoctorController extends Controller
         $projects = Project::where('owner_dr',$doctor['id'])->select('projects.*','users.name')->leftJoin('users','users.id','=','projects.presenter_id')->get();
         $presenters = Project::where('presenter_id',$doctor['id'])->select('projects.*','users.name')->join('users','users.id','=','projects.owner_dr')->get();
         $doctors = User::where('role','doctor')->where('id','!=',$doctor['id'])->get();
-        return view('doctor.index',compact('doctor','projects','doctors','presenters'));
+        $all_projects = Project::join('users','owner_dr','users.id')->select('projects.*','users.name')->get();
+        return view('doctor.index',compact('doctor','projects','doctors','presenters','all_projects'));
     }
     public function change_password(Request $request,User $user)
     {
@@ -73,7 +75,27 @@ class DoctorController extends Controller
     public function marks(Project $project)
     {
         $mark = Mark::where('project_id',$project['id'])->first();
-        return view('doctor.mark',compact('project','mark'));
+        $team = Assign::where('project_id',$project['id'])->select('assigns.*','users.name','users.username','users.phone','users.id','students.dept')->join('users','assigns.student_id','=','users.id')->join('students','users.id','students.student_id')->get();
+        return view('doctor.mark',compact('project','mark','team'));
+    }
+    public function delete_member(Project $project,User $user)
+    {
+        // dd($project,$user);
+        $assign = Assign::where('project_id',$project['id'])->where('student_id',$user['id'])->first();
+        $assign->deleteOrFail();
+        $num = $project['students']-1;
+        $project->update([
+            'students'=>$num
+        ]);
+        $all_assigns = Assign::where('project_id',$project['id'])->get();
+        if($all_assigns){
+            foreach ($all_assigns as $key => $value) {
+                $value->update([
+                    'index'=>$key+1
+                ]);
+            }
+        }
+        return redirect('/marks/'.$project['id']);
     }
     public function update_marks(Request $request,Project $project)
     {

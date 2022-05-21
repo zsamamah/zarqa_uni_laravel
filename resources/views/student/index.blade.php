@@ -182,7 +182,7 @@
                         <tr>
                 <th width="30%">Doctor as presnter</th>
                 <td width="2%">:</td>
-                <td>{{$project->presenter}}</td>
+                <td>{{$presenter?$presenter->name:''}}</td>
               </tr>
               <tr>
                 <tr>
@@ -193,7 +193,11 @@
                 <tr>
                   <th width="30%">discussion link</th>
                   <td width="2%">:</td>
-                  <td><a href="{{$project->link}}">Here</a></td>
+                  <td>
+                    @if ($project->date)
+                    <a href="{{$project->link}}">Here</a>
+                    @endif
+                  </td>
                 </tr>
                 <th width="30%">Mark</th>
                 <td width="2%">:</td>
@@ -214,6 +218,8 @@
       <th>ID </th>
       <th>phone</th>
     </tr>
+    @if ($team)
+        
     @foreach ($team as $item)
     <tr>
       <td>{{$item->name}}</td>
@@ -221,6 +227,8 @@
       <td>{{$item->phone}}</td>
     </tr>
     @endforeach
+
+    @endif
   
   </table></div>
   <div id="ch_pass" class="tabcontent">
@@ -259,14 +267,19 @@
           <div style="height: 26px"></div>
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>uplode file </h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>upload file </h3>
           </div>
           <div class="card-body pt-0">
-            <form action="/action_page.php">
-              <div id="div1" style="background: #ffffff98;" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-<br>
-              <input type="file" id="myFile" name="filename">
-              <input type="submit" style="background: #6081ef; color: #f1f1f1;">
+            @if ($project->doc)
+                <p style="background-color: #2196F3">documentation already upload</p>
+                <a href='{{ url('/download/'.$project->doc) }}'>Download</a>
+            @endif
+            <form method="POST" action="{{ route('upload',$project['id']) }}" enctype="multipart/form-data">
+              @csrf
+              {{-- <div id="div1" style="background: #ffffff98;" ondrop="drop(event)" ondragover="allowDrop(event)"></div> --}}
+              <br>
+              <input type="file" id="myFile" name="file">
+              <button type="submit" style="background: #6081ef; color: #f1f1f1;">Submit</button>
               
             </form>          </div>
         </div>
@@ -286,7 +299,7 @@
         <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Project details </h3>
       </div>
       <div class="card-body pt-0">
-<p>Computerization of the graduation projects system in all its stages and making the student can register and upload files electronically. The projects are presented by the doctor, and in the end the student gets a mark based on the mark of the arbitrator and the doctor</p>
+<p>{{$project->full_des}}</p>
       </div>
     </div>
   </div>
@@ -298,61 +311,43 @@
 <div class="card shadow-sm">
   <div class="card-header bg-transparent border-0">
     <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Last project 
-      <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
-        <input type="text" placeholder="Search.." name="search2">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form></h3>
+      {{-- <form class="example" onsubmit="stopForm(this)" style="margin:auto;max-width:300px"> --}}
+        {{-- @csrf --}}
+        <input type="text" placeholder="Search..." id="search" name="search">
+        <button onclick="test()"><i class="fa fa-search"></i></button>
+      {{-- </form> --}}
+    </h3>
   </div>
-  <table class="table table-bordered">
+  <table id="projects" class="table table-bordered" style="margin-bottom: 6em">
     <thead>
       <tr>
         <th>name of project</th>
-        <th>doctour</th>
-        <th>date desction</th>
-        <th>mark</th>
+        <th>doctor</th>
+        <th>Short description</th>
+        <th>discussion date</th>
         <th>Docomuntion</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="data_table">
+      @foreach ($all_projects as $item)
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
+        <td>{{$item->project_name}}</td>
+        <td>{{$item->name}}</td>
+        <td>{{$item->short_des}}</td>
+        <td>{{$item->date}}</td>
+        <td>
+          @if ($item->doc)
+              <a class="badge badge-danger" href="{{ url('/download/'.$item->doc) }}">Download</a>
+          @endif
+          {{-- <label class="badge badge-danger">dwonlode</label> --}}
+        </td>
       </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
-      </tr>    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
-      </tr>    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
-      </tr>    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
-      </tr>    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><label class="badge badge-danger">dwonlode</label></td>
-      </tr>
+      @endforeach
+      
     </tbody>
+  </table>
+  <table id="search_result">
+
   </table>
 </div>
 </div>
@@ -370,7 +365,7 @@
      
 
 
-   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
@@ -402,6 +397,22 @@ function drop(ev) {
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
 }
+
+async function test(){
+  let data = document.getElementById('search').value;
+  let x = await fetch(`http://localhost:8000/api/search?search=${data}`);
+  let y = await x.json();
+  // console.log(y)
+  let table = document.getElementById('data_table');
+  table.innerHTML='';
+  for(let i=0;i<y.length;i++){
+    if(y[i].doc)
+    table.innerHTML+=`<tr><td>${y[i].project_name}</td><td>${y[i].name}</td><td>${y[i].short_des}</td><td>${y[i].date}</td><td><a class="badge badge-danger" href="http://localhost:8000/download/${y[i].doc}">Download</a></td></tr>`
+    else
+    table.innerHTML+=`<tr><td>${y[i].project_name}</td><td>${y[i].name}</td><td>${y[i].short_des}</td><td>${y[i].date}</td><td></td></tr>`
+  }
+}
+
 </script>
 	</body>
 </html>

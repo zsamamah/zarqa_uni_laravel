@@ -23,7 +23,8 @@ class Project extends Model
         'presenter_id',
         'short_des',
         'langs',
-        'full_des'
+        'full_des',
+        'doc'
     ];
 
     public function owner()

@@ -16,7 +16,8 @@ class Assign extends Model
      */
     protected $fillable = [
         'project_id',
-        'student_id'
+        'student_id',
+        'index'
     ];
 
     public function students()

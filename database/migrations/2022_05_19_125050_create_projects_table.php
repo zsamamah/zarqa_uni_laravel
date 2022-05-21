@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('short_des');
             $table->string('langs');
             $table->text('full_des');
+            $table->string('doc')->nullable();
             $table->timestamps();
         });
     }

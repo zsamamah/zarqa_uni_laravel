@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -21,10 +22,16 @@ class StudentController extends Controller
             return view('student.projects',compact('projects','student'));
         }
         $details = Student::where('student_id',$student['id'])->first();
-        $project = Project::where('projects.id',$assign['project_id'])->select('projects.*','u1.name as name','u2.name as presenter')->join('users as u1','projects.owner_dr','=','u1.id')->join('users as u2','projects.presenter_id','=','u2.id')->first();
-        $team = Assign::where('project_id',$project['id'])->select('users.name','users.username','users.phone')->join('users','assigns.student_id','=','users.id')->get();
-        // dd($project);
-        return view('student.index',compact('student','details','project','team'));
+        $project = Project::where('projects.id',$assign['project_id'])->select('projects.*','u1.name as name')->join('users as u1','projects.owner_dr','=','u1.id')->first();
+        $presenter=NULL;
+        if($project->presenter_id){
+            $presenter = Project::where('projects.id',$assign['project_id'])->select('users.name')->join('users','projects.presenter_id','users.id')->first();
+            // dd($presenter);
+        }
+        $team = Assign::where('project_id',$project['id'])->select('assigns.*','users.name','users.username','users.phone')->join('users','assigns.student_id','=','users.id')->get();
+        $all_projects = Project::join('users','owner_dr','users.id')->select('projects.*','users.name')->get();
+        // dd($all_projects);
+        return view('student.index',compact('student','details','project','team','presenter','all_projects'));
     }
     public function change_password(Request $request,User $user)
     {
@@ -43,10 +50,41 @@ class StudentController extends Controller
         $project->update([
             'students'=>$num
         ]);
-        Assign::create([
-            'project_id'=>$project['id'],
-            'student_id'=>$user['id']
+        $last = Assign::where('project_id',$project['id'])->max('index');
+        // dd($last);
+        if(!$last){
+            Assign::create([
+                'project_id'=>$project['id'],
+                'student_id'=>$user['id'],
+                'index'=>'1'
+            ]);
+        }
+        else{
+            $num = $last+1;
+            Assign::create([
+                'project_id'=>$project['id'],
+                'student_id'=>$user['id'],
+                'index'=> $num
+            ]);
+        }
+        return redirect('/');
+    }
+    public function upload_doc(Request $request,Project $project)
+    {
+        $filename = time().'.pdf';
+        Storage::putFileAs('/assets',$request->file,$filename);
+        $project->update([
+            'doc'=>$filename
         ]);
         return redirect('/student');
+    }
+    public function download($file)
+    {
+        return Storage::download('assets/'.$file,'documentation.pdf');
+    }
+    public function search(Request $request)
+    {
+            $data = Project::where('project_name','like','%'.$request->search.'%')->select('projects.*','users.name')->join('users','projects.owner_dr','users.id')->get();
+            return response($data);
     }
 }

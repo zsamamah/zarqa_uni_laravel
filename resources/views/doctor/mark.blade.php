@@ -171,35 +171,20 @@ th {
       <th>القسم</th>
       <th>حذف</th>
     </tr>
+    @foreach ($team as $item)
     <tr>
-      <td><label>s1</label></td>
-      <td><label>20....</label></td>
-      <td><label>......</label></td>
-
-      <td>        <input type="submit" value="Submit">
-       </td>
-    </tr>
-    <tr>
-        <td><label>s2</label></td>
-        <td><label>20....</label></td>
-        <td><label>......</label></td>
-        <td>        <input type="submit" value="Submit">
-        </td>
-    </tr>
-    <tr>
-        <td><label>s3</label></td>
-        <td><label>20....</label></td>
-        <td><label>......</label></td>
-        <td>        <input type="submit" value="Submit">
-        </td>
-    </tr>
-    <tr>
-        <td><label>s4</label></td>
-      <td><label>20....</label></td>
-      <td><label>......</label></td>
-      <td>        <input type="submit" value="Submit">
+      <td>{{$item->name}}</td>
+      <td>{{$item->username}}</td>
+      <td>{{$item->dept}}</td>
+      <td>
+        <form method="POST" action="{{url('delete-member/'.$project->id.'/'.$item->id)}}">
+          @csrf
+          @method('delete')
+          <button type="submit">Delete</button>
+        </form>
       </td>
-  </tr>
+    </tr>
+    @endforeach
   </table>
 </div>
 
