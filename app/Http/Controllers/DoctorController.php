@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assign;
+use App\Models\Grade;
 use App\Models\Mark;
 use App\Models\Project;
 use App\Models\User;
@@ -48,6 +49,9 @@ class DoctorController extends Controller
         ]);
         Mark::create([
             'project_id'=>$project['id']
+        ]);
+        Grade::create([
+            'project_id'=>$project['id'],
         ]);
         return redirect('/doctor');
     }
@@ -214,4 +218,5 @@ class DoctorController extends Controller
         }
         return redirect('/marks/'.$project['id']);
     }
+
 }

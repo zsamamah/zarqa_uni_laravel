@@ -225,7 +225,6 @@
       <th>Discussion date</th>
       <th>Discussion link</th>
       <th>Doctor as presnter</th>
-      <th>Mark </th>
       <th>Details</th>
     </tr>
     @foreach ($projects as $item)
@@ -269,7 +268,6 @@
       <p>{{$item->name}}</p>
       @endif
     </td>
-      <td>...</td>
       <td><a href="{{ route('marks',$item->id) }}"><button>Mark</button></a></td>
     </tr>
     @endforeach
@@ -284,7 +282,6 @@
       <th>Discussion date</th>
       <th>Discussion link</th>
       <th>Doctor</th>
-      <th>Mark </th>
       <th>Details</th>
     </tr>
     @foreach ($presenters as $item)
@@ -299,8 +296,7 @@
         @endif
       </td>
       <td>{{$item->name}}</td>
-      <td>...</td>
-      <td><a href="mark2.html"><button>Mark</button></a></td>
+      <td><a href="{{ url('/grade/'.$item->id) }}"><button>Mark</button></a></td>
     </tr>
     @endforeach
   </table></div>

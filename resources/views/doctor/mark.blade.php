@@ -166,6 +166,7 @@ th {
   
 <table class="table2" align='center'>
     <tr>
+      <th>ترتيب الطالب</th>
       <th>اسم الطالب</th>
       <th>الرقم الجامعي</th>
       <th>القسم</th>
@@ -173,6 +174,7 @@ th {
     </tr>
     @foreach ($team as $item)
     <tr>
+      <td>{{ $loop->index+1 }}</td>
       <td>{{$item->name}}</td>
       <td>{{$item->username}}</td>
       <td>{{$item->dept}}</td>

@@ -36,4 +36,9 @@ class Project extends Model
     {
         return $this->hasOne(Mark::class);
     }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class);
+    }
 }

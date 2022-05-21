@@ -201,7 +201,7 @@
                 </tr>
                 <th width="30%">Mark</th>
                 <td width="2%">:</td>
-                <td></td>
+                <td>{{$index}}</td>
               </tr>
             </table>
           </div>
