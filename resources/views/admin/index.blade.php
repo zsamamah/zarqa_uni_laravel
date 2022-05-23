@@ -59,9 +59,9 @@
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal">Projects</h5>
                             <h2 class="mb-4 text-dark font-weight-bold">{{$projects->count()}}</h2>
-                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">completed</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>
+                            <div class="dashboard-progress dashboard-progress-1 align-items-center justify-content-center"><i class="mdi mdi-lightbulb icon-md text-dark"></i></div>
+                            {{-- <p class="mt-4 mb-0">completed</p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3> --}}
                           </div>
                         </div>
                       </div>
@@ -70,7 +70,7 @@
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal">Doctor</h5>
                             <h2 class="mb-4 text-dark font-weight-bold">{{$doctors->count()}}</h2>
-                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>
+                            <div class="dashboard-progress dashboard-progress-2 align-items-center item-parent"><i class="mdi mdi-account-circle icon-md text-dark"></i></div>
                          
                           </div>
                         </div>
@@ -80,7 +80,7 @@
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal">Students</h5>
                             <h2 class="mb-4 text-dark font-weight-bold">{{$students->count()}}</h2>
-                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>
+                            <div class="dashboard-progress dashboard-progress-2 align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md text-dark"></i></div>
                            
                           </div>
                         </div>

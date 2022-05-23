@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(['register'=>false]);
+
+Route::get('/login',function(){
+    return view('index');
+})->name('login');
+
 Route::get('/', function () {
     //after finish make it view('index')
     // dd(Auth::user());
@@ -31,12 +37,12 @@ Route::get('/', function () {
             return redirect('/student');
     }
     else
-    return view('index');
+        return redirect('/login');
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware'=>['auth','IsAdmin']],function(){
     Route::get('/admin',[AdminController::class,'home'])->name('admin');

@@ -61,6 +61,9 @@ body{
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
+{{-- <input type="text" placeholder="Search..." name="search" id="search">
+<button onclick="test()"><i class="fa fa-search"></i></button> --}}
+
 <ul id="myUL" >
 
   @foreach ($projects as $item)
@@ -89,6 +92,20 @@ function myFunction() {
             li[i].style.display = "none";
         }
     }
+}
+async function test(){
+  let data = document.getElementById('search').value;
+  let x = await fetch(`http://localhost:8000/api/search?search=${data}`);
+  let y = await x.json();
+  // console.log(y)
+  let table = document.getElementById('myUL');
+  table.innerHTML='';
+  for(let i=0;i<y.length;i++){
+    if(y[i].doc)
+    table.innerHTML+=`<li>${y[i].project_name} ${y[i].name} ${y[i].short_des} ${y[i].date}</li>`
+    else
+    table.innerHTML+=`<tr><td>${y[i].project_name}</td><td>${y[i].name}</td><td>${y[i].short_des}</td><td>${y[i].date}</td><td></td></tr>`
+  }
 }
 </script>
 

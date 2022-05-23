@@ -150,60 +150,39 @@ form.example::after {
                     <div class="card">
                       <div class="card-body">
                         <h4 class="card-title">Last projects
-<form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
-  <input type="text" placeholder="Search.." name="search2">
-  <button type="submit"><i class="fa fa-search"></i></button>
-</form></h4>
+{{-- <input class="example" action="/action_page.php" style="margin:auto;max-width:300px"> --}}
+ 
+<input type="text" placeholder="Search..." name="search" id="search">
+        <button onclick="test()"><i class="fa fa-search"></i></button>
+</h4>
                         </p>
-                        <table class="table">
+                        <table class="table table-bordered">
                           <thead>
                             <tr>
                               <th>name of project</th>
                               <th>doctour</th>
-                              <th>date desction</th>
-                              <th>mark</th>
+                              <th>description</th>
+                              <th>date</th>
                               <th>Docomuntion</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="data_table">
+                      
+                            @foreach ($all_projects as $item)
                             <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
+                              <td>{{$item->project_name}}</td>
+                              <td>{{$item->name}}</td>
+                              <td>{{$item->short_des}}</td>
+                              <td>{{$item->date}}</td>
+                              <td>
+                                @if ($item->doc)
+                                    <a class="badge badge-danger" href="{{ url('/download/'.$item->doc) }}">Download</a>
+                                @endif
+                                {{-- <label class="badge badge-danger">dwonlode</label> --}}
+                              </td>
                             </tr>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
-                            </tr>    <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
-                            </tr>    <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
-                            </tr>    <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
-                            </tr>    <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><label class="badge badge-danger">dwonlode</label></td>
-                            </tr>
+                            @endforeach
+                           
                           </tbody>
                         </table>
                       </div>
@@ -229,6 +208,22 @@ form.example::after {
     <script src="admin_assets/js/off-canvas.js"></script>
     <script src="admin_assets/js/hoverable-collapse.js"></script>
     <script src="admin_assets/js/misc.js"></script>
+    <script>
+      async function test(){
+  let data = document.getElementById('search').value;
+  let x = await fetch(`http://localhost:8000/api/search?search=${data}`);
+  let y = await x.json();
+  // console.log(y)
+  let table = document.getElementById('data_table');
+  table.innerHTML='';
+  for(let i=0;i<y.length;i++){
+    if(y[i].doc)
+    table.innerHTML+=`<tr><td>${y[i].project_name}</td><td>${y[i].name}</td><td>${y[i].short_des}</td><td>${y[i].date}</td><td><a class="badge badge-danger" href="http://localhost:8000/download/${y[i].doc}">Download</a></td></tr>`
+    else
+    table.innerHTML+=`<tr><td>${y[i].project_name}</td><td>${y[i].name}</td><td>${y[i].short_des}</td><td>${y[i].date}</td><td></td></tr>`
+  }
+}
+    </script>
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

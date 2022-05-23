@@ -60,7 +60,8 @@ class AdminController extends Controller
     {
         $doctors = User::where('role','doctor')->get();
         $students = User::where('role','student')->get();
-        return view('admin.users',compact('doctors','students'));
+        $all_projects = Project::select('projects.*','users.name')->join('users','projects.owner_dr','users.id')->get();
+        return view('admin.users',compact('doctors','students','all_projects'));
     }
     public function delete_user(User $user)
     {
