@@ -102,33 +102,9 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Specialization</label>
-                        <div class="col-sm-9">
-                          <input type="text" name="dept" class="form-control" id="exampleInputUsername2" placeholder="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">completed hours</label>
-                        <div class="col-sm-9">
-                          <input type="text" name="hours" class="form-control" id="exampleInputUsername2" placeholder="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cumulative average</label>
-                        <div class="col-sm-9">
-                          <input type="text" name="gpa" class="form-control" id="exampleInputUsername2" placeholder="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">phone</label>
                         <div class="col-sm-9">
                           <input type="tel" name="phone" class="form-control" id="exampleInputUsername2" placeholder="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">year GraduatioN</label>
-                        <div class="col-sm-9">
-                          <input type="number" name="grad_year" class="form-control" id="exampleInputUsername2" placeholder="">
                         </div>
                       </div>
                       <div class="form-group row">

@@ -110,4 +110,15 @@ class StudentController extends Controller
             $data = Project::where('project_name','like','%'.$request->search.'%')->select('projects.*','users.name')->join('users','projects.owner_dr','users.id')->get();
             return response($data);
     }
+    public function student_data(Request $request,User $user)
+    {
+        // dd($user);
+        Student::where('student_id',$user['id'])->update([
+            'dept'=>$request['dept'],
+            'hours'=>$request['hours'],
+            'gpa'=>$request['gpa'],
+            'grad_year'=>$request['grad_year']
+        ]);
+        return redirect('/student');
+    }
 }

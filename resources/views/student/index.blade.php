@@ -147,6 +147,7 @@
         <div class="card shadow-sm">
           <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'G_in')">General Information</button>
+            <button class="tablinks" onclick="openCity(event, 'P_in')">Personal Information</button>
             <button class="tablinks" onclick="openCity(event, 'Team')">Team</button>
             <button class="tablinks" onclick="openCity(event, 'ch_pass')">Change password</button>
           </div>
@@ -208,6 +209,40 @@
         </div>
         </div>   </div>
       
+
+               
+<div id="P_in" class="tabcontent">
+  <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Personal Information</h3>
+<form method="POST" action="{{ route('student-data',$student['id']) }}" style="margin-top: 2em">
+  @csrf
+  <div class="form-group row">
+    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Specialization</label>
+    <div class="col-sm-9">
+      <input type="text" name="dept" class="form-control" id="exampleInputUsername2" placeholder="" value="@if ($details->dept){{$details->dept}}@else NULL @endif">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">completed hours</label>
+    <div class="col-sm-9">
+      <input type="text" name="hours" class="form-control" id="exampleInputUsername2" placeholder="" value="@if ($details->hours){{$details->hours}}@else NULL @endif">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cumulative average</label>
+    <div class="col-sm-9">
+      <input type="text" name="gpa" class="form-control" id="exampleInputUsername2" placeholder="" value="@if ($details->gpa){{$details->gpa}}@else NULL @endif">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">year GraduatioN</label>
+    <div class="col-sm-9">
+      <input type="text" name="grad_year" class="form-control" id="exampleInputUsername2" placeholder="" value="@if ($details->grad_year){{$details->grad_year}}@else NULL @endif">
+    </div>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+</div>
         
 <div id="Team" class="tabcontent">
   <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Team member</h3>

@@ -48,10 +48,10 @@ class AdminController extends Controller
             ]);
             Student::create([
                 'student_id'=>$user['id'],
-                'dept'=>$request['dept'],
-                'hours'=>$request['hours'],
-                'gpa'=>$request['gpa'],
-                'grad_year'=>$request['grad_year']
+                'dept'=>'NULL',
+                'hours'=>'NULL',
+                'gpa'=>'NULL',
+                'grad_year'=>'0'
             ]);
         }
         return redirect('/add-user');

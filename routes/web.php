@@ -73,6 +73,7 @@ Route::group(['middleware'=>['auth','IsStudent']],function(){
     Route::post('/student-change-password/{user}',[StudentController::class,'change_password'])->name('student-change-password');
     Route::get('/assign/{project}/{user}',[StudentController::class,'assign'])->name('assign');
     Route::post('/upload/{project}',[StudentController::class,'upload_doc'])->name('upload');
+    Route::post('/student-data/{user}',[StudentController::class,'student_data'])->name('student-data');
 });
 
 Route::group(['middleware'=>['auth']],function(){
